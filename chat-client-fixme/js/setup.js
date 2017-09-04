@@ -104,7 +104,13 @@ var displayData = function(data, user) {
   });
 };
 
-var postData = function(message, username) {
+var postData = function() {
+ send(); 
+};
+
+// responsible for sending messages to the server
+
+var send = function (message, username) {
   $.ajax({
     url: SERVER_URL,
     contentType: 'application/json',
@@ -120,4 +126,4 @@ var postData = function(message, username) {
       console.log(data);
     }
   });
-};
+}
