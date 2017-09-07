@@ -37,5 +37,35 @@ var makeSmartPhone = function(phoneNumber, email) {
 
   return phone;
 };
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // your code is here
+
+var makePhone = function(phoneNumber) {
+  this.phoneNumber = phoneNumber;
+};
+
+makePhone.prototype.send = function(recipientPhoneNumber, message) {
+    return 'sending the message "' + message + '" to the phone number ' + recipientPhoneNumber + ' from ' + this.phoneNumber;
+  };
+
+
+
+
+var makeSmartPhone = function(phoneNumber, email) {
+  makePhone.call(this);
+  this.email = email;
+ }; 
+
+ makeSmartPhone.prototype = Object.create(makePhone.prototype)
+ makeSmartPhone.prototype.constructor = makeSmartPhone
+ makeSmartPhone.prototype.send = function(recipientPhoneNumberOrEmail, message) {
+    if (typeof recipientPhoneNumberOrEmail === 'number') {
+      // We need `.call` here to make sure that `this` will reference our smart phone in makePhone's send
+      return oldSend.call(this, recipientPhoneNumberOrEmail, message);
+    } else {
+      return 'sending the message "' + message + '" to email ' + recipientPhoneNumberOrEmail + ' from ' + this.email;
+    }
+  };
+
+
+
